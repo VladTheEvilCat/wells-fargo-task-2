@@ -1,16 +1,21 @@
 package com.wellsfargo.counselor.entity;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Advisor {
+public class Client {
 
     @Id
     @GeneratedValue()
-    private long advisorId;
+    private long clientId;
+
+    @ManyToOne
+    private Advisor advisor;
 
     @Column(nullable = false)
     private String firstName;
@@ -27,9 +32,10 @@ public class Advisor {
     @Column(nullable = false)
     private String email;
 
-    protected Advisor() {}
+    protected Client() {}
 
-    public Advisor(String firstName, String lastName, String address, String phone, String email) {
+    public Client(Advisor advisor, String firstName, String lastName, String address, String phone, String email) {
+        this.advisor = advisor;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -37,25 +43,23 @@ public class Advisor {
         this.email = email;
     }
 
-    public Long getAdvisorId() { return this.advisorId; }
+    public Long getClientId() { return this.clientId; }
+
+    public Advisor getAdvisor() { return this.advisor; }
+    public void setAdvisor(Advisor advisor) { this.advisor = advisor; }
 
     public String getFirstName() { return this.firstName; }
-
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
     public String getLastName() { return this.lastName; }
-
     public void setLastName(String lastName) { this.lastName = lastName; }
 
     public String getAddress() { return this.address; }
-
     public void setAddress(String address) { this.address = address; }
 
-    public String getPhone() { return this.phone; }
-
+    public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
 
     public String getEmail() { return this.email; }
-
     public void setEmail(String email) { this.email = email; }
 }
